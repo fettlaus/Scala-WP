@@ -11,7 +11,6 @@ object Aufgabe_4 {
     Array("Hallo ","Welt","!").foreach(print)
     println()
     List("Hallo ","Welt","!").foreach(print)
-    println()
   }
 
 }
