@@ -1,4 +1,4 @@
-package de.haw.scala.A1
+package de.haw.scala.A1.T5
 
 object Aufgabe_5 {
 
