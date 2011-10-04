@@ -2,8 +2,7 @@ Wahlpflichtfach Scala
 =====================
 In diesem Repository werden unsere Lösungen der Aufgaben für das Wahlpflichtfach "Scala" an der HAW-Hamburg verwaltet.
 
-**Gruppe 2**  
-**Team 7**
+**Gruppe 2**
 
 **Thimo Wilken**  
 **Arne Wischer**
