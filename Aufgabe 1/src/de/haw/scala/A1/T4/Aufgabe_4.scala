@@ -2,7 +2,7 @@ package de.haw.scala.A1.T4
 
 object Aufgabe_4 {
   
-  def  max(a:Array[Int])={a.max}
+  def max(a:Array[Int])={a.max}
   def max(a:Int,b:Int)={if(a>b)a else b}
   def swap(a:Int,b:Int)=(b,a)
   
