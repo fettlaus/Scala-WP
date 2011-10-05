@@ -5,6 +5,7 @@ object Aufgabe_1 {
   def main(args: Array[String]) {
     println(collatzIterative(23).mkString("Iterative: [", ", ", "]"))
     println(collatz(23).mkString("Recursive: [", ", ", "]"))
+    println(collatzAppend(23).mkString("Append: [", ", ", "]"))
   }
 
   def collatz(n:Int): Array[Int] = {
@@ -22,5 +23,15 @@ object Aufgabe_1 {
       else i = i*3+1
     }
     arr :+ i
+  }
+
+  def collatzAppend(n: Int): Array[Int] = {
+    import scala.collection.mutable.ArrayBuffer
+    def colHelp(n: Int): ArrayBuffer[Int] = {
+      if (n == 1) ArrayBuffer(1)
+      else if (n%2 == 0) colHelp(n/2) += n
+      else colHelp(3*n+1) += n
+    }
+    colHelp(n).reverse.toArray
   }
 }
