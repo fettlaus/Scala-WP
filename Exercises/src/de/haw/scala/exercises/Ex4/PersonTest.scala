@@ -1,4 +1,4 @@
-package de.haw.scala.A1.Ex4
+package de.haw.scala.Exercises.Ex4
 
 object PersonTest {
 
