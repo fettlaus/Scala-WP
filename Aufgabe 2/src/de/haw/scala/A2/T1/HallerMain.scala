@@ -26,6 +26,6 @@ object Haller extends Sex with Person with Student{
 
 }
 
-object HallerTest{
+object HallerMain{
     def main(args: Array[String]): Unit = for(i <-1 to 5) println(Haller) 
 }
