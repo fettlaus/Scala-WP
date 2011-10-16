@@ -1,4 +1,4 @@
-package de.haw.scala.A2.T1
+package de.haw.scala.praktikum.collatz
 
 object Aufgabe_1 {
 
