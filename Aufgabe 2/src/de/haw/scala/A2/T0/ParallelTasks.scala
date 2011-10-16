@@ -1,4 +1,4 @@
-package de.haw.scala.A2.T2
+package de.haw.scala.A2.T0
 
 object ParallelTasks {
   object Task {
