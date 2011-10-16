@@ -20,8 +20,7 @@ object Haller extends Sex with Person with Student{
   val name = "Olaf Haller"
   val addr = "123456"
   val matr = 123456
-  import Math._
-  def inlecture = if (random > 0.5) true else false
+  def inlecture = util.Random.nextBoolean
   override def toString = "Haller("+name+","+(if(male) "m" else "f")+","+matr+",studiert"+(if(inlecture)""else" nicht")+")"
 
 }
