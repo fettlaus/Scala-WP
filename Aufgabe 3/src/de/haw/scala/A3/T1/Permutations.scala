@@ -5,13 +5,18 @@ object Permutations {
     def apply(num:Int) = elm(num-1)    
     override def toString = "s("+elm.mkString(",")+")"
     
-    def cycles = {
-      val p = elm.diff(this.fixPoints)
-      val r = for(i<-Vector(p)) // kein toVector :( 
-          // Hier knirscht es noch arg
-        //for(i <- p;if(i != p(i)))
-        yield i
-      r
+    def cycles = {      
+      val r = for(i<-Vector(elm:_*)) // kein toVector :(        
+        yield {
+        def cy(k:Int,l:List[Int]):List[Int]={
+          if(this(k)==i)
+            l
+          else
+            this(k)::cy(this(k),l)
+      }
+        cy(i,i::List()).sorted
+      }      
+      r.distinct
     }
     
     def fixPoints = {
@@ -19,6 +24,6 @@ object Permutations {
             yield i
       k.toList
     }
-  }
+}
     
 }
