@@ -22,8 +22,8 @@ object Permutations {
         new s(elms: _*)
     }
   }
-  class s(val elm: Int*) {
-    def apply(num: Int) = elm(num - 1)
+  class s(val elm: Int*) extends Function1[Int,Int] {
+    def apply(num: Int):Int = elm(num - 1)
 
     override def toString = "s(" + elm.mkString(",") + ")"
     override def equals(in: Any) = {
