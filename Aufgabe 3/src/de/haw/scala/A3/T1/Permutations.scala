@@ -7,6 +7,7 @@ package de.haw.scala.A3.T1
  * http://daily-scala.blogspot.com/2009/11/varargs.html
  * http://fupeg.blogspot.com/2009/04/tail-recursion-in-scala.html
  * http://www.scala-lang.org/api/current/scala/collection/immutable/Vector$.html
+ * http://jim-mcbeath.blogspot.com/2009/05/scala-functions-vs-methods.html
  */
 object Permutations {
   object NaP extends s {
