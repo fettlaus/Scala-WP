@@ -34,7 +34,7 @@ object Permutations {
       }
     }
     def cycles = {
-      val r = for (i <- Vector(elm: _*)) // kein toVector :(        
+      val r = for (i <- Vector(elm: _*))     
       yield {
         def cy(k: Int, l: List[Int]): List[Int] = {
           if (this(k) == i)
