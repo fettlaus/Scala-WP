@@ -34,15 +34,16 @@ object Permutations {
       }
     }
     def cycles = {
+      import scala.annotation._
       val r = for (i <- Vector(elm: _*))     
       yield {
-        def cy(k: Int, l: List[Int]): List[Int] = {
-          if (this(k) == i)
+        @tailrec def cy(k: Int, l: List[Int]): List[Int] = {
+          if (k == i)
             l
           else
-            this(k) :: cy(this(k), l)
+            cy(this(k),k:: l)
         }
-        cy(i, i :: List()).sorted
+        cy(this(i), i :: List()).sorted
       }
       r.distinct
     }
