@@ -13,6 +13,9 @@ object RStringMain {
     println(rs("th[aeiou]".r)) //the
     println(rs("lo")) //lo
     println(rs("bye")) //Rnil
+    println(rs.scan("(...)".r).deep) //Array(hel, lo , the)
+    println(rs.scan("lo").deep) //Array(lo)
+    println(rs.scan("e").deep) // Array(e, e, e)
   }
 
 }
