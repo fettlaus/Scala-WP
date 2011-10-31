@@ -13,7 +13,7 @@ object Permutations {
   object NaP extends s {
     override def toString = "NaP"
     override def apply(x: Int) = -1
-    override def cycles = Vector(List())
+    override def cycles = Vector(List[Int]())
   }
   object s {
     def apply(elm: Int) { this(elm) }
@@ -36,6 +36,12 @@ object Permutations {
     }
     def cycles = {
       import scala.annotation._
+      @tailrec def cy(s:Int, k:Int, l:List[Int]):List[Int] = {        
+        if (k==s) l else cy(s, this(k), k :: l)
+      }
+      elm.foldLeft(Vector[List[Int]]())((p,q)=>if (p.flatten.contains(q)) p else p:+cy(q,this(q),List(q)))
+      //old Code
+      /*
       val r = for (i <- Vector(elm: _*))     
       yield {
         @tailrec def cy(k: Int, l: List[Int]): List[Int] = {
@@ -47,6 +53,7 @@ object Permutations {
         cy(this(i), i :: List()).sorted
       }
       r.distinct
+      */
     }
 
     def fixPoints = {
