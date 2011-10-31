@@ -34,13 +34,17 @@ object Permutations {
         case _ => false
       }
     }
+    
+    /**
+     * Idea new code by Christian Braun
+     */
     def cycles = {
       import scala.annotation._
       @tailrec def cy(s:Int, k:Int, l:List[Int]):List[Int] = {        
         if (k==s) l else cy(s, this(k), k :: l)
       }
       elm.foldLeft(Vector[List[Int]]())((p,q)=>if (p.flatten.contains(q)) p else p:+cy(q,this(q),List(q)))
-      //old Code
+      //old/own code
       /*
       val r = for (i <- Vector(elm: _*))     
       yield {
