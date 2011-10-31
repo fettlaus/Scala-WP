@@ -13,6 +13,7 @@ object Permutations {
   object NaP extends s {
     override def toString = "NaP"
     override def apply(x: Int) = -1
+    override def cycles = Vector(List())
   }
   object s {
     def apply(elm: Int) { this(elm) }
