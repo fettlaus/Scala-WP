@@ -4,7 +4,7 @@ object Strings {
 
   def main(args: Array[String]): Unit = {
     val sLst = List("Hallo","Welt")
-    println(sLst.toList.flatten)
+    println(sLst.flatten)
   }
 
 }
