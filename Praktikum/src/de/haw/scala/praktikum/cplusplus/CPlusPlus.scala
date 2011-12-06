@@ -32,17 +32,11 @@ package de.haw.scala.praktikum.cplusplus
 
 import java.io._
 object CPlusPlus {
-  case class endl;
+  val endl = '\n';
  implicit def cc(p:PrintStream) = new {
-    def <<(a:Any)={
-      a match {
-        case s:endl => p.println(); p // failure
-        case s:String => p.print(s); p
-        case c:Char => p.print(c); p
-        case _ => p.println(); p
-      }
-    }
+    def <<(a:Any)= {p.print(a); p;}
   }
+ 
   def main(args: Array[String]): Unit = {
     System.out << "Hallo" << ' ' << "Welt" << endl
     System.out << "Hallo" << ' ' << "Welt" << endl
