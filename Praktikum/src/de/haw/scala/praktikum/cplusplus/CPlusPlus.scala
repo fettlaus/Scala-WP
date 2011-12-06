@@ -30,8 +30,22 @@
  */
 package de.haw.scala.praktikum.cplusplus
 
+import java.io._
 object CPlusPlus {
-
-  def main(args: Array[String]): Unit = {}
+  case class endl;
+ implicit def cc(p:PrintStream) = new {
+    def <<(a:Any)={
+      a match {
+        case s:endl => p.println(); p // failure
+        case s:String => p.print(s); p
+        case c:Char => p.print(c); p
+        case _ => p.println(); p
+      }
+    }
+  }
+  def main(args: Array[String]): Unit = {
+    System.out << "Hallo" << ' ' << "Welt" << endl
+    System.out << "Hallo" << ' ' << "Welt" << endl
+  }
 
 }
