@@ -6,7 +6,7 @@ object safeCalcMain {
     try{
       if(func.length<1)
         throw new IllegalArgumentException("function-argument(s) missing")
-    Right(func.foldLeft(value)((b,a)=>a(b)))
+      Right(func.foldLeft(value)((b,a)=>a(b)))
     }catch{
       case e => Left(e)
     }
