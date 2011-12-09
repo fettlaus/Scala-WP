@@ -1,4 +1,4 @@
-package de.haw.scala.A5.T2
+package de.haw.scala.A5.T1
 
 object EitherListMain {
 
