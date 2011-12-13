@@ -30,8 +30,8 @@ object PermutationsMain {
 
     println(NaP(10)) // -1
 
-    def foo (f: Int => Int, g: Int => Double, x: Int) = g(f(x)) 
-    println(foo(s(1,6,4,2,3,5), Array(1.0,-1.0,1,4.0,-3.0), 4)) //1.0
+    def foo(f: Int => Int, g: Int => Double, x: Int) = g(f(x))
+    println(foo(s(1, 6, 4, 2, 3, 5), Array(1.0, -1.0, 1, 4.0, -3.0), 4)) //1.0
 
   }
 

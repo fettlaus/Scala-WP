@@ -4,7 +4,7 @@ object MxnMain {
 
   def main(args: Array[String]): Unit = {
     import scalala.tensor.dense._
-    val m = DenseMatrix.zeros[Int](5,5)
+    val m = DenseMatrix.zeros[Int](5, 5)
   }
 
 }

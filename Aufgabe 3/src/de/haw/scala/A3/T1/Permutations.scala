@@ -24,8 +24,8 @@ object Permutations {
         new s(elms: _*)
     }
   }
-  class s(val elm: Int*) extends Function1[Int,Int] {
-    def apply(num: Int):Int = elm(num - 1)
+  class s(val elm: Int*) extends Function1[Int, Int] {
+    def apply(num: Int): Int = elm(num - 1)
 
     override def toString = "s(" + elm.mkString(",") + ")"
     override def equals(in: Any) = {
@@ -34,16 +34,16 @@ object Permutations {
         case _ => false
       }
     }
-    
+
     /**
      * Idea new code by Christian Braun
      */
     def cycles = {
       import scala.annotation._
-      @tailrec def cy(s:Int, k:Int, l:List[Int]):List[Int] = {        
-        if (k==s) l else cy(s, this(k), k :: l)
+      @tailrec def cy(s: Int, k: Int, l: List[Int]): List[Int] = {
+        if (k == s) l else cy(s, this(k), k :: l)
       }
-      elm.foldLeft(Vector[List[Int]]())((p,q)=>if (p.flatten.contains(q)) p else p:+cy(q,this(q),List(q)))
+      elm.foldLeft(Vector[List[Int]]())((p, q) => if (p.flatten.contains(q)) p else p :+ cy(q, this(q), List(q)))
       //old/own code
       /*
       val r = for (i <- Vector(elm: _*))     

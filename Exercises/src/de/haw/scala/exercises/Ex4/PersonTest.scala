@@ -2,7 +2,7 @@ package de.haw.scala.exercises.Ex4
 
 object PersonTest {
 
-  def main(args: Array[String]) { 
+  def main(args: Array[String]) {
     val a = Array(new Person("She-Ra"), new Person("He-Man"), new Person("Skeletor"))
     println(a.mkString("Array(", ",", ")"))
     a(1).address = "Grayskull"

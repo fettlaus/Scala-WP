@@ -31,21 +31,21 @@
 package de.haw.scala.praktikum.implicitdate
 
 object Implicit {
-	import java.util.Date
-	import java.text.SimpleDateFormat
-  
-def needADate(d:Date){
-	  println("Das Datum ist "+d)
+  import java.util.Date
+  import java.text.SimpleDateFormat
+
+  def needADate(d: Date) {
+    println("Das Datum ist " + d)
   }
-	
-  implicit def s2d(s:String):Date={
-    try{
-      new SimpleDateFormat("dd.MM.yyyy").parse(s)      
-    }catch{
-      case _  => new Date()
+
+  implicit def s2d(s: String): Date = {
+    try {
+      new SimpleDateFormat("dd.MM.yyyy").parse(s)
+    } catch {
+      case _ => new Date()
     }
   }
-  
+
   def main(args: Array[String]): Unit = {
     needADate("06.12.f2011")
   }

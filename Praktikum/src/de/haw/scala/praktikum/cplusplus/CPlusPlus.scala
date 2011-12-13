@@ -33,10 +33,10 @@ package de.haw.scala.praktikum.cplusplus
 import java.io._
 object CPlusPlus {
   val endl = '\n';
- implicit def appendToPrintStream(p:PrintStream) = new {
-    def <<(a:Any)= {p.print(a); p;}
+  implicit def appendToPrintStream(p: PrintStream) = new {
+    def <<(a: Any) = { p.print(a); p; }
   }
- 
+
   def main(args: Array[String]): Unit = {
     System.out << "Hallo" << ' ' << "Welt" << endl
     System.out << "Hallo" << ' ' << "Welt" << endl

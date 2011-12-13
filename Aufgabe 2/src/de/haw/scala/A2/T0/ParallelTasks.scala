@@ -5,8 +5,8 @@ object ParallelTasks {
     def apply(code: => Unit): Task = new Task(code)
   }
 
-  class Task (code: => Unit) extends Thread {
-    def ||(other: Task): Task = { 
+  class Task(code: => Unit) extends Thread {
+    def ||(other: Task): Task = {
       if (!isAlive) start
       if (!other.isAlive) other.start
       other
@@ -19,8 +19,8 @@ object ParallelTasks {
     import Thread._
     println("1 2 3 4")
     Task(for (i <- 0 to 4) { sleep(300); println("o - - -") }) ||
-    Task(for (i <- 0 to 3) { sleep(200); println("- o - -") }) ||
-    Task(for (i <- 0 to 9) { sleep(100); println("- - o -") }) ||
-    Task(for (i <- 0 to 3) { sleep(400); println("- - - o") })
+      Task(for (i <- 0 to 3) { sleep(200); println("- o - -") }) ||
+      Task(for (i <- 0 to 9) { sleep(100); println("- - o -") }) ||
+      Task(for (i <- 0 to 3) { sleep(400); println("- - - o") })
   }
 }

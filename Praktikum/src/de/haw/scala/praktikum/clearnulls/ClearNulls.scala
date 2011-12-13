@@ -30,18 +30,18 @@
  */
 package de.haw.scala.praktikum.clearnulls
 
-class MyList[A](t:List[A]){
- def clearNulls():List[A]= t.filter(_ != null)
+class MyList[A](t: List[A]) {
+  def clearNulls(): List[A] = t.filter(_ != null)
 }
 object ClearNulls {
   //implicit def list2mylist[G](l:List[G]) = new MyList(l);
-  
-  implicit def lis3t2mylist[G](l:List[G]) = new {
+
+  implicit def lis3t2mylist[G](l: List[G]) = new {
     def clearNulls = l.filter(_ != null)
   }
-  
+
   def main(args: Array[String]): Unit = {
-    println(List("Hallo",null,"Welt",null,null,null).clearNulls)
+    println(List("Hallo", null, "Welt", null, null, null).clearNulls)
   }
 
 }
