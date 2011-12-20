@@ -9,19 +9,20 @@ object NotInBothMain {
    * simple solution but not tailrec
   def notInBoth[T](a1: Seq[T], a2: Seq[T]):Seq[T]= a1.diff(a2)++a2.diff(a1)
   */
-  def notInBoth[T](a1: Seq[T], a2: Seq[T]) = {
+  
+  /*
+   * Lösung von Nils Evers
+   */
+  def notInBoth[T](a1: Seq[T], a2: Seq[T]): Seq[T] = {
+    import collection.immutable.HashSet 
     import scala.annotation.tailrec
     @tailrec
-    def myFold[T](map: Map[T, Boolean], list: Seq[T]): Map[T, Boolean] = {
-      if (list.isEmpty)
-        map
-      else
-        myFold(map.updated(list.head, !map.contains(list.head)), list.tail)
+    def nib[T](s1: HashSet[T], s2:HashSet[T], res: HashSet[T]): HashSet[T] = {
+        if(s1.isEmpty) return s2 ++ res
+        if(s2(s1.head)) nib(s1.tail, s2-s1.head, res)
+        else nib(s1.tail, s2-s1.head, res+s1.head)
     }
-
-    myFold(collection.immutable.HashMap(a1.map((_, true)).toList: _*), a2) collect {
-      case (element, in) => element
-    } toList
-  }
+    nib(HashSet() ++ a1, HashSet() ++ a2, HashSet()).toList
+}
 
 }
