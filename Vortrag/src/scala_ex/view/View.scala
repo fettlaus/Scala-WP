@@ -19,6 +19,8 @@ import scala.swing.event.MousePressed
 import scala.swing.Reactions
 import scala.swing.Panel
 import scala.swing.ScrollPane
+import scala.actors.Actor
+import scala.annotation.tailrec
 
 class View(name: String) extends Frame {
    val mouseoutput = Array.fill(5)(new Label("0"))
@@ -26,7 +28,6 @@ class View(name: String) extends Frame {
    val input = new TextField(25)
    val result = new TextArea("Gefundene Primzahlen:\n")
    val progress = new Label()
-   val calc = new Button("Finde")
    title = name
 
    val mainpanel = new BorderPanel {
@@ -35,7 +36,30 @@ class View(name: String) extends Frame {
       add(new FlowPanel {
          contents += new Label("Finde alle Primzahlen bis:")
          contents += input
-         contents += calc
+         // Actions
+         contents += Button("Finde"){
+            println("Ich rechne nun!")
+            val max = input.text.toInt
+            new Actor{
+               def act(){
+                  result.text = ""
+                  @tailrec
+                  def finddivisor(n:Int,testdiv:Int):Int={
+                      if (testdiv*testdiv > n)
+                         n
+                      else if ((n%testdiv)==0)
+                         testdiv
+                     else
+                        finddivisor(n, testdiv + 1)                     
+                  }
+                  
+                  for(i <- 3 to max){
+                     progress.text = i.toString
+                     if(finddivisor(i,2)==i) result.append(i.toString()+", ")
+                  }
+               }
+            }.start()
+         }
       }, BorderPanel.Position.North)
 
       // Left (West)
@@ -63,7 +87,7 @@ class View(name: String) extends Frame {
       // Bottom (South)
       add(new FlowPanel {
          contents += new Label("Aktuelle Zahl:")
-         contents += new Label("erlege gerade Zahl XYZ")
+         contents += progress
       }, BorderPanel.Position.South)
    }
 

@@ -23,11 +23,6 @@ class Controller(name: String) {
       case e: MouseReleased => m.mousereleases = m.mousereleases + 1; update
    }
 
-   v.listenTo(v.calc)
-   v.reactions += {
-      case ButtonClicked(b) => println("butt")
-   }
-
    def update {
       v.mouseoutput(0).text = m.mouseclicks.toString
       v.mouseoutput(1).text = m.mouseenters.toString
