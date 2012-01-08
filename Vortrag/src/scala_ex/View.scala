@@ -21,13 +21,15 @@ import scala.swing.Panel
 import scala.swing.ScrollPane
 import scala.actors.Actor
 import scala.annotation.tailrec
+import scala.swing.ProgressBar
 
 class View(name: String) extends Frame {
    val mouseoutput = Array.fill(5)(new Label("0"))
    private val mouselabeltext = Array("Mouse Click:", "Mouse Enter:", "Mouse Exit", "Mouse Pressed:", "Mouse Relesed:")
-   val input = new TextField(25) { text = "100" }
+   val input = new TextField(25) { text = "200000" }
    val result = new TextArea("Gefundene Primzahlen:\n")
-   val progress = new Label()
+   val progress = new Label
+   val pbar = new ProgressBar
    var mouseclicks = 0
    var mouseenters = 0
    var mouseexits = 0
@@ -58,7 +60,7 @@ class View(name: String) extends Frame {
             new Actor {
                def act() {
                   result.text = ""
-
+                     pbar.max = max
                   @tailrec
                   def finddivisor(n: Int, testdiv: Int): Int = {
                      if (testdiv * testdiv > n) n
@@ -68,6 +70,7 @@ class View(name: String) extends Frame {
 
                   for (i <- 3 to max) {
                      progress.text = i.toString
+                     pbar.value = i
                      if (finddivisor(i, 2) == i) result.append(i.toString() + ", ")
                   }
                }
@@ -101,6 +104,7 @@ class View(name: String) extends Frame {
       add(new FlowPanel {
          contents += new Label("Aktuelle Zahl:")
          contents += progress
+         contents += pbar
       }, BorderPanel.Position.South)
    }
 
