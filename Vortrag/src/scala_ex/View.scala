@@ -22,12 +22,17 @@ import scala.swing.ScrollPane
 import scala.actors.Actor
 import scala.annotation.tailrec
 import scala.swing.ProgressBar
+import scala.swing.MenuBar
+import scala.swing.Menu
+import scala.swing.MenuItem
+import scala.swing.Action
+import scala.swing.Dialog
 
 class View(name: String) extends Frame {
    val mouseoutput = Array.fill(5)(new Label("0"))
    private val mouselabeltext = Array("Mouse Click:", "Mouse Enter:", "Mouse Exit", "Mouse Pressed:", "Mouse Relesed:")
    val input = new TextField(25) { text = "200000" }
-   val result = new TextArea("Gefundene Primzahlen:\n")
+   val result = new TextArea("Gefundene Primzahlen:\n"){editable=false}
    val progress = new Label
    val pbar = new ProgressBar
    var mouseclicks = 0
@@ -39,6 +44,17 @@ class View(name: String) extends Frame {
    title = name
 
    val mainpanel = new BorderPanel {
+      menuBar = new MenuBar{
+         contents += new Menu("File") {
+            contents += new MenuItem(Action("Exit"){System.exit(0)})
+         }
+         contents += new Menu("Edit") {
+            contents += new MenuItem(Action("Copy"){result.selectAll;result.copy})
+         }
+         contents += new Menu("Help") {
+            contents += new MenuItem(Action("About"){Dialog.showMessage(this,"(c)2012\n\nRene Rose\nArne Wischer\nBenjamin Burchard","About")})
+         }
+      }
 
       listenTo(mouse.moves, mouse.clicks)
       reactions += {
