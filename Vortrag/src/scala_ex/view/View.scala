@@ -25,37 +25,50 @@ import scala.annotation.tailrec
 class View(name: String) extends Frame {
    val mouseoutput = Array.fill(5)(new Label("0"))
    private val mouselabeltext = Array("Mouse Click:", "Mouse Enter:", "Mouse Exit", "Mouse Pressed:", "Mouse Relesed:")
-   val input = new TextField(25)
+   val input = new TextField(25) { text = "100" }
    val result = new TextArea("Gefundene Primzahlen:\n")
    val progress = new Label()
+   var mouseclicks = 0
+   var mouseenters = 0
+   var mouseexits = 0
+   var mousepresses = 0
+   var mousereleases = 0
+
    title = name
 
    val mainpanel = new BorderPanel {
+
+      listenTo(mouse.moves, mouse.clicks)
+      reactions += {
+         case e: MouseEntered => mouseenters = mouseenters + 1; mouseoutput(1).text = mouseenters.toString
+         case e: MouseExited => mouseexits = mouseexits + 1; mouseoutput(2).text = mouseexits.toString
+         case e: MouseClicked => mouseclicks = mouseclicks + 1; mouseoutput(0).text = mouseclicks.toString
+         case e: MousePressed => mousepresses = mousepresses + 1; mouseoutput(3).text = mousepresses.toString
+         case e: MouseReleased => mousereleases = mousereleases + 1; mouseoutput(4).text = mousereleases.toString
+      }
 
       // Top (North)
       add(new FlowPanel {
          contents += new Label("Finde alle Primzahlen bis:")
          contents += input
-         // Actions
-         contents += Button("Finde"){
+         // Actions & Actors
+         contents += Button("Finde") {
             println("Ich rechne nun!")
             val max = input.text.toInt
-            new Actor{
-               def act(){
+            new Actor {
+               def act() {
                   result.text = ""
+
                   @tailrec
-                  def finddivisor(n:Int,testdiv:Int):Int={
-                      if (testdiv*testdiv > n)
-                         n
-                      else if ((n%testdiv)==0)
-                         testdiv
-                     else
-                        finddivisor(n, testdiv + 1)                     
+                  def finddivisor(n: Int, testdiv: Int): Int = {
+                     if (testdiv * testdiv > n) n
+                     else if ((n % testdiv) == 0) testdiv
+                     else finddivisor(n, testdiv + 1)
                   }
-                  
-                  for(i <- 3 to max){
+
+                  for (i <- 3 to max) {
                      progress.text = i.toString
-                     if(finddivisor(i,2)==i) result.append(i.toString()+", ")
+                     if (finddivisor(i, 2) == i) result.append(i.toString() + ", ")
                   }
                }
             }.start()
