@@ -1,5 +1,5 @@
 package scala_ex.controller
-import scala_ex.view._
+import scala_ex._
 import scala_ex.model._
 import scala.swing.event.MouseEntered
 import scala.swing.event.MouseExited

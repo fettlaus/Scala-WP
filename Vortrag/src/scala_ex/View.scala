@@ -1,4 +1,4 @@
-package scala_ex.view
+package scala_ex
 
 import scala.swing.Frame
 import scala.swing.BorderPanel
