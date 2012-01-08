@@ -30,7 +30,7 @@ import scala.swing.Dialog
 
 class View(name: String) extends Frame {
    val mouseoutput = Array.fill(5)(new Label("0"))
-   private val mouselabeltext = Array("Mouse Click:", "Mouse Enter:", "Mouse Exit", "Mouse Pressed:", "Mouse Relesed:")
+   private val mouselabeltext = Array("Mouse Click:", "Mouse Enter:", "Mouse Exit", "Mouse Pressed:", "Mouse Released:")
    val input = new TextField(25) { text = "200000" }
    val result = new TextArea("Gefundene Primzahlen:\n"){editable=false}
    val progress = new Label
