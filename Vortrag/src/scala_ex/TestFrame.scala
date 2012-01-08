@@ -4,7 +4,7 @@ object TestFrame {
 
   def main(args: Array[String]): Unit = {
     import scala_ex.controller._
-    new Controller()
+    new Controller("Scala Swing Example")
   }
 
 }
