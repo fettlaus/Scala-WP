@@ -32,7 +32,7 @@ class View(name: String) extends Frame {
    val mouseoutput = Array.fill(5)(new Label("0"))
    private val mouselabeltext = Array("Mouse Click:", "Mouse Enter:", "Mouse Exit", "Mouse Pressed:", "Mouse Released:")
    val input = new TextField(25) { text = "200000" }
-   val result = new TextArea("Gefundene Primzahlen:\n"){editable=false}
+   val result = new TextArea("Gefundene Primzahlen:\n") { editable = false }
    val progress = new Label
    val pbar = new ProgressBar
    var mouseclicks = 0
@@ -44,15 +44,15 @@ class View(name: String) extends Frame {
    title = name
 
    val mainpanel = new BorderPanel {
-      menuBar = new MenuBar{
+      menuBar = new MenuBar {
          contents += new Menu("File") {
-            contents += new MenuItem(Action("Exit"){System.exit(0)})
+            contents += new MenuItem(Action("Exit") { System.exit(0) })
          }
          contents += new Menu("Edit") {
-            contents += new MenuItem(Action("Copy"){result.selectAll;result.copy})
+            contents += new MenuItem(Action("Copy") { result.selectAll; result.copy })
          }
          contents += new Menu("Help") {
-            contents += new MenuItem(Action("About"){Dialog.showMessage(this,"(c)2012\n\nRene Rose\nArne Wischer\nBenjamin Burchard","About")})
+            contents += new MenuItem(Action("About") { Dialog.showMessage(this, "(c)2012\n\nRene Rose\nArne Wischer\nBenjamin Burchard", "About") })
          }
       }
 
@@ -76,7 +76,7 @@ class View(name: String) extends Frame {
             new Actor {
                def act() {
                   result.text = ""
-                     pbar.max = max
+                  pbar.max = max
                   @tailrec
                   def finddivisor(n: Int, testdiv: Int): Int = {
                      if (testdiv * testdiv > n) n
