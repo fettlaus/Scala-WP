@@ -2,6 +2,7 @@ package scala_ex
 
 import scala.swing.Frame
 import scala.swing.BorderPanel
+import scala.swing.MainFrame
 import scala.swing.Button
 import scala.swing.FlowPanel
 import scala.swing.Label
@@ -27,14 +28,16 @@ import scala.swing.Menu
 import scala.swing.MenuItem
 import scala.swing.Action
 import scala.swing.Dialog
+import scala.concurrent.ops._
 
-class View(name: String) extends Frame {
+class View(name: String) extends MainFrame {
    val mouseoutput = Array.fill(5)(new Label("0"))
    private val mouselabeltext = Array("Mouse Click:", "Mouse Enter:", "Mouse Exit", "Mouse Pressed:", "Mouse Released:")
    val input = new TextField(25) { text = "200000" }
    val result = new TextArea("Gefundene Primzahlen:\n") { editable = false }
    val progress = new Label
    val pbar = new ProgressBar
+   val found = new Label
    var mouseclicks = 0
    var mouseenters = 0
    var mouseexits = 0
@@ -71,26 +74,38 @@ class View(name: String) extends Frame {
          contents += input
          // Actions & Actors
          contents += Button("Finde") {
-            println("Ich rechne nun!")
-            val max = input.text.toInt
-            new Actor {
-               def act() {
-                  result.text = ""
-                  pbar.max = max
-                  @tailrec
-                  def finddivisor(n: Int, testdiv: Int): Int = {
-                     if (testdiv * testdiv > n) n
-                     else if ((n % testdiv) == 0) testdiv
-                     else finddivisor(n, testdiv + 1)
-                  }
-
-                  for (i <- 3 to max) {
-                     progress.text = i.toString
-                     pbar.value = i
-                     if (finddivisor(i, 2) == i) result.append(i.toString() + ", ")
-                  }
+           
+            println("Ich rechne nun!")            
+            var counter = 0
+            
+            spawn{
+               var p = 0
+               while(true){               
+                  Thread.sleep(1000)
+                  found.text = " Op/sec "+(counter-p)
+                  p = counter
                }
-            }.start()
+            }
+            
+            spawn{
+               val max = input.text.toInt
+               counter = 0
+               result.text = ""
+               pbar.max = max
+               @tailrec
+               def finddivisor(n: Int, testdiv: Int): Int = {
+                  if (testdiv * testdiv > n) n
+                  else if ((n % testdiv) == 0) testdiv
+                  else finddivisor(n, testdiv + 1)
+               }
+ 
+               for (i <- 3 to max) {                             
+                  counter = i
+                  progress.text = i.toString
+                  pbar.value = i
+                  if (finddivisor(i, 2) == i) result.append(i.toString() + ", ")
+               }
+            }
          }
       }, BorderPanel.Position.North)
 
@@ -121,8 +136,10 @@ class View(name: String) extends Frame {
          contents += new Label("Aktuelle Zahl:")
          contents += progress
          contents += pbar
+         contents += found
       }, BorderPanel.Position.South)
    }
+   
 
    preferredSize = new Dimension(640, 480)
    peer.setLocation(50, 50)
