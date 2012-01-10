@@ -44,8 +44,10 @@ class View(name: String) extends MainFrame {
    var mousepresses = 0
    var mousereleases = 0
 
+   // === Scala setter & getter
    title = name
 
+   // === Layouts in Panels
    val mainpanel = new BorderPanel {
       menuBar = new MenuBar {
          contents += new Menu("File") {
@@ -60,6 +62,7 @@ class View(name: String) extends MainFrame {
       }
 
       listenTo(mouse.moves, mouse.clicks)
+      // === partial functions
       reactions += {
          case e: MouseEntered => mouseenters = mouseenters + 1; mouseoutput(1).text = mouseenters.toString
          case e: MouseExited => mouseexits = mouseexits + 1; mouseoutput(2).text = mouseexits.toString
@@ -72,12 +75,11 @@ class View(name: String) extends MainFrame {
       add(new FlowPanel {
          contents += new Label("Finde alle Primzahlen bis:")
          contents += input
-         // Actions & Actors
+         // === Actions & Factory
          contents += Button("Finde") {
-           
-            println("Ich rechne nun!")            
+                      
             var counter = 0
-            
+            // === Threads
             spawn{
                var p = 0
                while(true){               
