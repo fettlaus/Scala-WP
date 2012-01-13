@@ -9,17 +9,12 @@ object TempMain {
    trait Quantity {
       type unit <: BaseUnit
       def value: Double
-      def +[Q <: Quantity](p: Q) = {
-         // Extremely ugly code. Need to work on this!
-         p match {
-            case p: Length => Length(value + p.value)
-            case p: Temperature => Temperature(value + p.value)
-            case p: Time => Time(value + p.value)
-         }
-      }
    }
-   trait QMonoid[Q] {
+   trait QMonoid[Q <: Quantity] {
       def plus(x: Q, y: Q): Q
+      class op(x: Q) {
+         def +(p: Q) = plus(x, p)
+      }
    }
    object QMonoid {
       implicit object AddLength extends QMonoid[Length] {
@@ -32,19 +27,20 @@ object TempMain {
          def plus(x: Time, y: Time): Time = Time(x.value + y.value)
       }
    }
-   def add[Q: QMonoid](x: Q, y: Q): Q = implicitly[QMonoid[Q]].plus(x, y)
+   def add[Q <: Quantity](x: Q, y: Q)(implicit m: QMonoid[Q]): Q = m.plus(x, y)
+   implicit def w[Q <: Quantity](k: Q)(implicit m: QMonoid[Q]): QMonoid[Q]#op = new m.op(k)
 
    case class Length(value: Double) extends Quantity { type unit = Meter }
    case class Temperature(value: Double) extends Quantity { type unit = Kelvin }
    case class Time(value: Double) extends Quantity { type unit = Second }
 
    def main(args: Array[String]): Unit = {
-      println(add(Length(1), Length(2.7)))                  // Length(3.7)
-      println(add(Temperature(273.15), Temperature(30.0)))  // Temperature(303.15)
-      println(add(Time(100), Time(50)))                     // Time(150.0)
+      println(add(Length(1), Length(2.7))) // Length(3.7)
+      println(add(Temperature(273.15), Temperature(30.0))) // Temperature(303.15)
+      println(add(Time(100), Time(50))) // Time(150.0)
 
-      println(Length(1) + Length(2.7))                      // Length(3.7)
-      println(Temperature(273.15) + Temperature(30.0))      // Temperature(303.15)
-      println(Time(100) + Time(50))                         // Time(150.0)
+      println(Length(1) + Length(2.7)) // Length(3.7)
+      println(Temperature(273.15) + Temperature(30.0)) // Temperature(303.15)
+      println(Time(100) + Time(50)) // Time(150.0)
    }
 }
