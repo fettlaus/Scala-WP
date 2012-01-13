@@ -10,6 +10,7 @@ object TempMain {
       type unit <: BaseUnit
       def value: Double
       def +[Q <: Quantity](p: Q) = {
+         // Extremely ugly code. Need to work on this!
          p match {
             case p: Length => Length(value + p.value)
             case p: Temperature => Temperature(value + p.value)
