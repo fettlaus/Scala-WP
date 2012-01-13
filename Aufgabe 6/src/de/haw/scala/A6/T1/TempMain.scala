@@ -1,6 +1,4 @@
 package de.haw.scala.A6.T1
-import com.sun.org.apache.xpath.internal.operations.Plus
-import scala.runtime.ObjectRef
 
 object TempMain {
 
