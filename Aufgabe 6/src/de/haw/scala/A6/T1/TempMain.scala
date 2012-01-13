@@ -9,11 +9,11 @@ object TempMain {
    trait Quantity {
       type unit <: BaseUnit
       def value: Double
-      def +[Q <: Quantity](derp: Q) = {
-         derp match {
-            case derp: Length => Length(value + derp.value)
-            case derp: Temperature => Temperature(value + derp.value)
-            case derp: Time => Time(value + derp.value)
+      def +[Q <: Quantity](p: Q) = {
+         p match {
+            case p: Length => Length(value + p.value)
+            case p: Temperature => Temperature(value + p.value)
+            case p: Time => Time(value + p.value)
          }
       }
    }
