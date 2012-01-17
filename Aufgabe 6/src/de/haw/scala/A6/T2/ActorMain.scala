@@ -7,6 +7,7 @@ object ActorMain {
     replyReactor ! (Low, "lp1")
     replyReactor ! (Normal, "np1")
     replyReactor ! (High, "hp1")
+    Thread.sleep(50)
     replyReactor ! (Low, "lp2")
     replyReactor ! (Normal, "np2")
     replyReactor ! (Low, "lp3")
@@ -19,12 +20,13 @@ object ActorMain {
   }
 
   // Solution by Daniela Niemeyer
+  // modified by Arne Wischer
   object High
   object Normal
   object Low
 
   import scala.actors._
-  object replyReactor extends Actor {
+  object replyReactor extends ReplyReactor {
 
     def act {
       loop {
@@ -39,7 +41,12 @@ object ActorMain {
                   case (High, s) => println(s)
                   case (Normal, s) => println(s)
                   case (Low, s) => println(s)
-                  case TIMEOUT => exit
+                  case TIMEOUT => {
+                    reactWithin(100) {
+                      case m: (Any, String) => this ! m
+                      case TIMEOUT => exit
+                    }
+                  }
                 }
               }
             }
