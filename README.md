@@ -4,9 +4,6 @@ In diesem Repository werden unsere Lösungen der Aufgaben für das Wahlpflichtfa
 
 **Gruppe 2**
 
-**Thimo Wilken**  
-**Arne Wischer**
-
 Termin 1
 --------
 Einführungstermin mit einigen kurzen Beispiel- und Verständnisaufgaben.
